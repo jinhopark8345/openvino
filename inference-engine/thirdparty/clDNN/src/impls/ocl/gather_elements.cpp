@@ -3,17 +3,40 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
+#include "cldnn/runtime/utils.hpp"
 #include "gather_elements_inst.h"
+#include "kernel_selector.h"
 #include "primitive_base.hpp"
 #include "impls/implementation_map.hpp"
 #include "kernel_selector_helper.h"
 #include "gather/gather_elements_kernel_selector.h"
 #include "gather/gather_elements_kernel_ref.h"
+#include "primitive_inst.h"
+#include <locale>
 
 using namespace cldnn;
 
 namespace cldnn {
 namespace ocl {
+
+kernel_selector::gather_elements_axis convert_axis(gather_elements::gather_elements_axis axis) {
+    switch (axis) {
+        case gather_elements::along_x:
+            return kernel_selector::gather_elements_axis::X;
+        case gather_elements::along_y:
+            return kernel_selector::gather_elements_axis::Y;
+        case gather_elements::along_z:
+            return kernel_selector::gather_elements_axis::Z;
+        case gather_elements::along_w:
+            return kernel_selector::gather_elements_axis::W;
+        case gather_elements::along_f:
+            return kernel_selector::gather_elements_axis::FEATURE;
+        case gather_elements::along_b:
+            return kernel_selector::gather_elements_axis::BATCH;
+        default:
+            return kernel_selector::gather_elements_axis::BATCH;
+    }
+}
 
 struct gather_elements_impl : typed_primitive_impl_ocl<gather_elements> {
     using parent = typed_primitive_impl_ocl<gather_elements>;
@@ -23,13 +46,13 @@ struct gather_elements_impl : typed_primitive_impl_ocl<gather_elements> {
         return make_unique<gather_elements_impl>(*this);
     }
 
+public:
     static primitive_impl* create(const gather_elements_node& arg) {
         auto gather_elements_params = get_default_params<kernel_selector::gather_elements_params>(arg);
         auto gather_elements_optional_params =
             get_default_optional_params<kernel_selector::gather_elements_optional_params>(arg.get_program());
 
-        gather_elements_params.indices_rank = arg.get_primitive()->indices_rank;
-        gather_elements_params.batch_dims = arg.get_primitive()->batch_dims;
+        gather_elements_params.axis = convert_axis(arg.get_primitive()->axis);
 
         gather_elements_params.inputs.push_back(convert_data_tensor(arg.input(1).get_output_layout()));
 
@@ -40,7 +63,6 @@ struct gather_elements_impl : typed_primitive_impl_ocl<gather_elements> {
                          "Best_kernel.empty()",
                          best_kernels.empty(),
                          "Cannot find a proper kernel with this arguments");
-
         auto gather_elements = new gather_elements_impl(arg, best_kernels[0]);
 
         return gather_elements;
@@ -63,6 +85,6 @@ attach_gather_elements_impl::attach_gather_elements_impl() {
     });
 }
 
-}  // namespace detail
+} // namespace detail
 }  // namespace ocl
 }  // namespace cldnn
