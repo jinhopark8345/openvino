@@ -21,6 +21,7 @@ KERNEL(gather_elements_ref)(const __global INPUT0_TYPE* data,
     const uint dim2 = get_global_id(2);
 
     #define ORDER 1
+    printf("Hello World from gather elements ref\n");
 
 }
 
