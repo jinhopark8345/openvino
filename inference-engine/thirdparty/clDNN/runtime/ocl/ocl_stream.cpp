@@ -299,26 +299,18 @@ event::ptr ocl_stream::enqueue_kernel(kernel& kernel,
 
     auto& kern = ocl_kernel.get_handle();
 
-    // args_desc.workGroups.global = {1,1,1};
-    // args_desc.workGroups.local = {1,1,1};
 
-    kernel_arguments_desc tmp;
-    tmp.workGroups.global = {1, 1, 1};
-    tmp.workGroups.local = {1, 1, 1};
-    tmp.arguments = args_desc.arguments;
-    tmp.scalars = args_desc.scalars;
-    tmp.layerID = args_desc.layerID;
+    // kernel_arguments_desc tmp;
+    // tmp.workGroups.global = {1, 1, 1};
+    // tmp.workGroups.local = {1, 1, 1};
+    // tmp.arguments = args_desc.arguments;
+    // tmp.scalars = args_desc.scalars;
+    // tmp.layerID = args_desc.layerID;
+    // auto global = toNDRange(tmp.workGroups.global);
+    // auto local = toNDRange(tmp.workGroups.local);
 
-
-
-    // auto global = toNDRange(args_desc.workGroups.global);
-    // auto local = toNDRange(args_desc.workGroups.local);
-
-    auto global = toNDRange(tmp.workGroups.global);
-    auto local = toNDRange(tmp.workGroups.local);
-    // std::cout << "hello world" << global.dimensions() << std::endl;
-    // auto global = cl::NDRange({1, 1, 1}, 3);
-    // auto local = cl::NDRange({1, 1, 1}, 3);
+    auto global = toNDRange(args_desc.workGroups.global);
+    auto local = toNDRange(args_desc.workGroups.local);
 
     std::vector<cl::Event> dep_events;
     std::vector<cl::Event>* dep_events_ptr = nullptr;

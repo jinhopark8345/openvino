@@ -72,19 +72,22 @@ static inline std::vector<std::string> GetDefaultOrder(size_t size) {
 CommonDispatchData GatherElementsKernelRef::SetDefault(const gather_elements_params& params, const optional_params&) const {
     CommonDispatchData dispatchData;
 
-    const auto& output = params.output;
+    // const auto& output = params.output;
 
     switch (params.inputs[1].GetLayout()) {
     case DataLayout::bfyx:
-        dispatchData.gws = {output.X().v, output.Y().v, output.Feature().v * output.Batch().v};
+        // dispatchData.gws = {output.X().v, output.Y().v, output.Feature().v * output.Batch().v};
+        dispatchData.gws = {1, 1, 1};
         break;
 
     case DataLayout::bfzyx:
-        dispatchData.gws = {output.X().v, output.Y().v * output.Z().v, output.Feature().v * output.Batch().v};
+        // dispatchData.gws = {output.X().v, output.Y().v * output.Z().v, output.Feature().v * output.Batch().v};
+        dispatchData.gws = {1, 1, 1};
         break;
 
     case DataLayout::bfwzyx:
-        dispatchData.gws = {output.X().v * output.Y().v, output.Z().v * output.W().v, output.Feature().v * output.Batch().v};
+        // dispatchData.gws = {output.X().v * output.Y().v, output.Z().v * output.W().v, output.Feature().v * output.Batch().v};
+        dispatchData.gws = {1, 1, 1};
         break;
 
     default:
@@ -93,7 +96,8 @@ CommonDispatchData GatherElementsKernelRef::SetDefault(const gather_elements_par
     }
 
 
-    dispatchData.lws = GetOptimalLocalWorkGroupSizes(dispatchData.gws, params.engineInfo);
+    // dispatchData.lws = GetOptimalLocalWorkGroupSizes(dispatchData.gws, params.engineInfo);
+    dispatchData.lws = {1, 1, 1};
 
     return dispatchData;
 }
