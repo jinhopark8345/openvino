@@ -299,16 +299,6 @@ event::ptr ocl_stream::enqueue_kernel(kernel& kernel,
 
     auto& kern = ocl_kernel.get_handle();
 
-
-    // kernel_arguments_desc tmp;
-    // tmp.workGroups.global = {1, 1, 1};
-    // tmp.workGroups.local = {1, 1, 1};
-    // tmp.arguments = args_desc.arguments;
-    // tmp.scalars = args_desc.scalars;
-    // tmp.layerID = args_desc.layerID;
-    // auto global = toNDRange(tmp.workGroups.global);
-    // auto local = toNDRange(tmp.workGroups.local);
-
     auto global = toNDRange(args_desc.workGroups.global);
     auto local = toNDRange(args_desc.workGroups.local);
 
