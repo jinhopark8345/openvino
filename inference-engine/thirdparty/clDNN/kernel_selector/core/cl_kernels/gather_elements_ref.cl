@@ -16,42 +16,6 @@ KERNEL(gather_elements_ref)(const __global INPUT0_TYPE* data,
 #endif
 )
 {
-    // const uint dim0 = get_global_id(0);
-    // const uint dim1 = get_global_id(1);
-    // const uint dim2 = get_global_id(2);
-
-    #define ORDER 1
-
-    // int y ;
-    // int x;
-    // printf("data: \n");
-    // for(y = 0; y < 20 ; y++){
-    //     for(x=0; x < 4; x++){
-    //         printf("%lf ", data[x + y * 4]);
-    //     }
-    //     printf("\n");
-    // }
-    // printf("\n");
-
-    // printf("indices: \n");
-    // for(int y = 0; y <8 ; y++){
-    //     for(int x=0; x < 4; x++){
-    //         printf("%lf ", indices[x + y * 4]);
-    //     }
-    //     printf("\n");
-    // }
-    // printf("\n");
-
-    ////////////////////////////////////////////////
-
-    // const uint dim0 = get_global_id(0);
-    // const uint dim1 = get_global_id(1);
-    // const uint dim2 = get_global_id(2);
-
-    // printf("OUTPUT_SIZE_X %d\n", OUTPUT_SIZE_X);
-    // printf("OUTPUT_SIZE_Z %d\n", OUTPUT_SIZE_Z);
-    // printf("OUTPUT_FEATURE_NUM %d\n", OUTPUT_FEATURE_NUM);
-
     for(uint dim2 = 0; dim2 < 1*2; dim2++){
         for(uint dim1 = 0; dim1 < 1*2; dim1++){
             for(uint dim0 = 0 ; dim0 < 2*4 ; dim0 ++ ){
@@ -66,7 +30,6 @@ KERNEL(gather_elements_ref)(const __global INPUT0_TYPE* data,
                 const uint b = dim2 / OUTPUT_FEATURE_NUM;
 
                 const int out_idx = GET_OUTPUT_INDEX(INPUT1, ORDER);
-                // printf("OUTPUT_idx %d\n", out_idx);
 
                 size_t data_shape[6] = {INPUT0_BATCH_NUM, INPUT0_FEATURE_NUM, INPUT0_SIZE_W, INPUT0_SIZE_Z, INPUT0_SIZE_Y, INPUT0_SIZE_X};
                 size_t indices_shape[6] = {INPUT1_BATCH_NUM, INPUT1_FEATURE_NUM, INPUT1_SIZE_W, INPUT1_SIZE_Z, INPUT1_SIZE_Y, INPUT1_SIZE_X};
@@ -98,6 +61,7 @@ KERNEL(gather_elements_ref)(const __global INPUT0_TYPE* data,
             }
         }
     }
+
 
 
 }
