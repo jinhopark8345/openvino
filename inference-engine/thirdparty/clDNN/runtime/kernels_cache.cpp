@@ -280,6 +280,9 @@ void kernels_cache::build_batch(const engine& build_engine, const batch_program&
 
     bool dump_sources = !_engine.configuration().sources_dumps_dir.empty() || batch.dump_custom_program;
     std::string dump_sources_dir = _engine.configuration().sources_dumps_dir;
+    // bool dump_sources = true;
+    // std::string dump_sources_dir = "/home/jinho/dump/";
+
     GPU_DEBUG_GET_INSTANCE(debug_config);
     GPU_DEBUG_IF(!debug_config->dump_sources.empty()) {
         dump_sources = true;
