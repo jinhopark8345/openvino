@@ -3,13 +3,13 @@
 //
 
 #include <vector>
-#include <ngraph/opsets/opset8.hpp>
+#include <ngraph/opsets/opset5.hpp>
 
 #include "single_layer_tests/gather_nd8.hpp"
 #include "common_test_utils/test_constants.hpp"
 
 using namespace LayerTestsDefinitions;
-using namespace ngraph::opset8;
+using namespace ngraph::opset5;
 
 namespace {
 

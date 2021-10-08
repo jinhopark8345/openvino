@@ -5,14 +5,14 @@
 #include "cldnn_program.h"
 #include "cldnn_common_utils.h"
 
-#include "ngraph/op/gather_nd8.hpp"
+#include "ngraph/op/gather_nd.hpp"
 #include "ngraph/op/constant.hpp"
 
 #include "cldnn/primitives/gather_nd8.hpp"
 
 namespace CLDNNPlugin {
 
-void CreateGatherND8Op(Program& p, const std::shared_ptr<ngraph::op::v8::GatherND8>& op) {
+void CreateGatherND8Op(Program& p, const std::shared_ptr<ngraph::op::v5::GatherND>& op) {
     p.ValidateInputs(op, {2});
     auto inputPrimitives = p.GetInputPrimitiveIDs(op);
     std::string layerName = layer_type_name_ID(op);

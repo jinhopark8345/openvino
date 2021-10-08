@@ -40,7 +40,7 @@ struct gather_nd8_impl : typed_primitive_impl_ocl<gather_nd8> {
                          best_kernels.empty(),
                          "Cannot find a proper kernel with this arguments");
 
-        auto gather_nd8 = new gather_nd_impl(arg, best_kernels[0]);
+        auto gather_nd8 = new gather_nd8_impl(arg, best_kernels[0]);
 
         return gather_nd8;
     }
