@@ -33,6 +33,7 @@ void register_implementations() {
     REGISTER_OCL(gather);
     REGISTER_OCL(gather_elements);
     REGISTER_OCL(gather_nd);
+    REGISTER_OCL(gather_nd8);
     REGISTER_OCL(gemm);
     REGISTER_OCL(lrn);
     REGISTER_OCL(lstm_gemm);
