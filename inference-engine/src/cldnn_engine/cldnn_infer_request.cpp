@@ -786,9 +786,7 @@ void CLDNNInferRequest::allocate_inputs() {
             } else {
                 auto blobPtr = create_device_blob(desc, litr->second);
                 _deviceInputs[name] = blobPtr;
-                Blob::Ptr inputBlob = create_host_blob(desc);
-                inputBlob->allocate();
-                _inputs[name] = inputBlob;
+                _inputs[name] = blobPtr;
             }
         }
     }
@@ -834,9 +832,7 @@ void CLDNNInferRequest::allocate_outputs() {
         }
         auto blobPtr = create_device_blob(desc, output_layout);
         _deviceOutputs[no.first] = blobPtr;
-        Blob::Ptr outputBlob = create_host_blob(desc);
-        outputBlob->allocate();
-        _outputs[no.first] = outputBlob;
+        _outputs[no.first] = blobPtr;
         outputsMap[no.first] = outputID;
     }
 }

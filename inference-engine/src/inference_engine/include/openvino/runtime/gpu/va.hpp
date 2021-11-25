@@ -7,18 +7,14 @@
  * shared Video Acceleration device contexts
  * and shared memory tensors which contain Video Acceleration surfaces
  *
- * @file openvino/runtime/gpu/ocl/va.hpp
+ * @file openvino/runtime/gpu/va.hpp
  */
 #pragma once
-
-#ifdef _WIN32
-#    error "OpenCL VA-API interoperability is supported only on Linux-based platforms"
-#endif
 
 #include <memory>
 #include <string>
 
-#include "openvino/runtime/gpu/ocl/ocl.hpp"
+#include "openvino/runtime/gpu/ocl.hpp"
 
 // clang-format off
 #include <va/va.h>
@@ -27,7 +23,6 @@
 namespace ov {
 namespace runtime {
 namespace gpu {
-namespace ocl {
 
 /**
  * @brief This class represents an abstraction for GPU plugin remote tensor
@@ -98,13 +93,10 @@ public:
      * @brief Constructs remote context object from VA display handle
      * @param core OpenVINO Runtime Core object
      * @param device A `VADisplay` to create remote context from
-     * @param target_tile_id Desired tile id within given context for multi-tile system. Default value (-1) means
-     * that root device should be used
      */
-    VAContext(Core& core, VADisplay device, int target_tile_id = -1) : ClContext(core, (cl_context) nullptr) {
+    VAContext(Core& core, VADisplay device) : ClContext(core, (cl_context) nullptr) {
         ParamMap context_params = {{GPU_PARAM_KEY(CONTEXT_TYPE), GPU_PARAM_VALUE(VA_SHARED)},
-                                   {GPU_PARAM_KEY(VA_DEVICE), static_cast<gpu_handle_param>(device)},
-                                   {GPU_PARAM_KEY(TILE_ID), target_tile_id}};
+                                   {GPU_PARAM_KEY(VA_DEVICE), static_cast<gpu_handle_param>(device)}};
         *this = core.create_context(device_name, context_params);
     }
 
@@ -146,7 +138,6 @@ public:
         return create_tensor(type, shape, params);
     }
 };
-}  // namespace ocl
 }  // namespace gpu
 }  // namespace runtime
 }  // namespace ov
