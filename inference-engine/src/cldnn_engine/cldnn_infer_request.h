@@ -92,7 +92,6 @@ private:
                          const cldnn::layout& inputLayout, const InferenceEngine::Blob &inputBlob,
                          buf_info* bi = nullptr);
 
-    InferenceEngine::Blob::Ptr host_blob_from_device_blob(const InferenceEngine::Blob::Ptr blobPtr);
     void allocate_inputs();
     void allocate_outputs();
     void allocate_inputs_dynamic();
