@@ -25,9 +25,6 @@ ie_add_plugin(NAME ${TARGET_NAME}
               SOURCES ${PLUGIN_SOURCES}
               VERSION_DEFINES_FOR src/plugin/plugin.cpp)
 
-target_compile_options(${TARGET_NAME} PRIVATE
-    $<$<CONFIG:Release>:$<IF:$<CXX_COMPILER_ID:MSVC>,/Os,-Os>>)
-
 target_link_libraries(${TARGET_NAME} PRIVATE ov_intel_gpu_graph
                                              pugixml::static
                                              inference_engine_transformations

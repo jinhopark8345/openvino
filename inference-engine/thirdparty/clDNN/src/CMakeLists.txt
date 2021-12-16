@@ -30,9 +30,6 @@ target_include_directories(${TARGET_NAME} PUBLIC
                                           $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
                                           $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/>)
 
-target_compile_options(${TARGET_NAME} PRIVATE
-  $<$<CONFIG:Release>:$<IF:$<CXX_COMPILER_ID:MSVC>,/Os,-Os>>)
-
 target_link_libraries(${TARGET_NAME} PUBLIC OpenCL)
 target_link_libraries(${TARGET_NAME} PRIVATE ov_intel_gpu_kernels
                                              ov_intel_gpu_runtime
