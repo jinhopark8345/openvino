@@ -81,16 +81,8 @@ html_theme_options = {
 }
 
 html_context = {
-    'current_version': 'nightly',
     'current_language': 'English',
-    'languages': (('English', '/latest'), ('Chinese', '/cn/latest')),
-    'versions': (('Latest', '/latest'), ('nightly', '/nightly'), ('2021.4', '/2021.4'),
-                ('2021.3', '/2021.3'), ('2021.2', '/2021.2'), ('2021.1', '/2021.1'),
-                 ('2020.4', '/2020.4'), ('2020.3', '/2020.3'), ('2020.2', '/2020.1'),
-                  ('2020.1', '/2020.1'), ('2019_R3.1', '/2019_R3.1'), ('2019_R3', '/2019_R3'),
-                   ('2019_R2', '/2019_R2'), ('2019_R1.1', '/2019_R1.1'),  ('2019_R1.01', '/2019_R1.01'),
-                    ('2019_R1', '/2019_R1'), ('2018_R5', '/2018_R5'),),
-    'download_docs_url': '/archives/2021.4.zip'
+    'languages': (('English', '/latest'), ('Chinese', '/cn/latest'))
 }
 
 repositories = {
@@ -139,9 +131,6 @@ def setup(app):
     logger = logging.getLogger(__name__)
     app.add_config_value('doxygen_mapping_file', doxygen_mapping_file, rebuild=True)
     app.add_config_value('repositories', repositories, rebuild=True)
-    app.add_css_file('css/viewer.min.css')
-    app.add_css_file('css/custom.css')
-    app.add_js_file('js/viewer.min.js')
     app.add_js_file('js/custom.js')
     app.add_js_file('js/graphs.js')
     try:
